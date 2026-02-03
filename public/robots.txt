@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://swedanaa.vercel.app/sitemap.xml
