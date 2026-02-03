@@ -3,7 +3,7 @@
 # Build settings
 [build]
   publish = "dist"
-  command = "npm run build"
+  command = "npm install --legacy-peer-deps && npm run build"
 
 # Redirect rules for SPA routing
 [[redirects]]
