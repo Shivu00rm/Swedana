@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4.7%;
+    --foreground: 240 5% 96%;
+    --card: 0 0% 4.7%;
+    --card-foreground: 240 5% 96%;
+    --popover: 0 0% 4.7%;
+    --popover-foreground: 240 5% 96%;
+    --primary: 40 65% 63%;
+    --primary-foreground: 0 0% 4.7%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 240 5% 96%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 4% 68%;
+    --accent: 40 65% 63%;
+    --accent-foreground: 0 0% 4.7%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 20%;
+    --input: 240 4% 20%;
+    --ring: 40 65% 63%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    @apply bg-zenith-black text-zenith-white font-body antialiased;
+    overflow-x: hidden;
+  }
+  
+  ::selection {
+    background: rgba(227, 176, 97, 0.3);
+  }
+}
+
+@layer components {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #E3B061 0%, #C9984A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-zenith-gold text-zenith-black font-display font-semibold text-sm tracking-wide rounded-full transition-all duration-300;
+  }
+  
+  .btn-gold:hover {
+    @apply transform -translate-y-0.5 scale-[1.02];
+    box-shadow: 0 10px 30px rgba(227, 176, 97, 0.3);
+  }
+  
+  .btn-gold:active {
+    @apply scale-[0.98];
+  }
+  
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-transparent border border-zenith-gold text-zenith-gold font-display font-semibold text-sm tracking-wide rounded-full transition-all duration-300;
+  }
+  
+  .btn-outline-gold:hover {
+    @apply bg-zenith-gold/10 transform -translate-y-0.5;
+  }
+  
+  .section-pinned {
+    @apply relative w-screen h-screen overflow-hidden;
+  }
+  
+  .heading-display {
+    @apply font-display font-black uppercase tracking-tight text-zenith-white;
+    letter-spacing: -0.02em;
+  }
+  
+  .text-micro {
+    @apply font-mono font-medium text-xs tracking-[0.14em] uppercase text-zenith-gray;
+  }
+  
+  .overlay-dark {
+    background: rgba(11, 11, 12, 0.55);
+  }
+  
+  .overlay-dark-strong {
+    background: rgba(11, 11, 12, 0.65);
+  }
+  
+  .vignette {
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(11, 11, 12, 0.4) 100%);
+  }
+  
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0B0C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E3B061;
+}
+
+/* Form styles */
+input, textarea {
+  @apply bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-zenith-white placeholder:text-zenith-gray/50 focus:outline-none focus:border-zenith-gold/50 focus:ring-1 focus:ring-zenith-gold/30 transition-all duration-300;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}

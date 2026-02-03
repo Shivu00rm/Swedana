@@ -1,0 +1,89 @@
+/* App-specific styles */
+
+/* Ensure smooth scroll behavior */
+html {
+  scroll-behavior: auto;
+}
+
+/* Pin spacer fix for GSAP */
+.pin-spacer {
+  pointer-events: none !important;
+}
+
+.pin-spacer > * {
+  pointer-events: auto !important;
+}
+
+/* Section transitions */
+section {
+  will-change: transform, opacity;
+}
+
+/* Image optimization */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Button interactions */
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Focus states */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(227, 176, 97, 0.5);
+  outline-offset: 2px;
+}
+
+/* Dialog overlay */
+[data-state="open"] {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dialog content */
+[data-radix-dialog-content] {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 1024px) {
+  .section-pinned {
+    min-height: 100svh;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
