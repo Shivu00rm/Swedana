@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
 import siteConfig from '../config/siteConfig';
 
@@ -8,29 +9,22 @@ interface FooterProps {
 const Footer = ({ className = '' }: FooterProps) => {
   const currentYear = new Date().getFullYear();
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const footerLinks = {
     product: [
-      { label: 'Standard Kit', id: 'product' },
-      { label: 'Custom Kit', id: 'product' },
-      { label: 'Specifications', id: 'specs' },
-      { label: 'Assembly Guide', id: 'assembly' },
-    ],
-    company: [
-      { label: 'Benefits', id: 'benefits' },
-      { label: 'How It Works', id: 'assembly' },
-      { label: 'Contact', id: 'contact' },
+      { label: 'All Products', path: '/products' },
+      { label: 'How It Works', path: '/how-it-works' },
+      { label: 'Health Benefits', path: '/benefits' },
+      { label: 'Compare Options', path: '/compare' },
     ],
     support: [
-      { label: 'Shipping Info', id: 'contact' },
-      { label: 'Warranty', id: 'product' },
-      { label: 'FAQ', id: 'contact' },
+      { label: 'Installation Guide', path: '/installation' },
+      { label: 'Maintenance & Care', path: '/maintenance' },
+      { label: 'Safety & Usage', path: '/safety' },
+      { label: 'FAQ', path: '/faq' },
+    ],
+    company: [
+      { label: 'Testimonials', path: '/testimonials' },
+      { label: 'Contact Us', path: '/#contact' },
     ],
   };
 
@@ -47,11 +41,11 @@ const Footer = ({ className = '' }: FooterProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
+            <Link to="/" className="flex items-center gap-3 mb-6 group">
               <img
                 src="/swedana_logo.png"
                 alt="SWEDANA"
-                className="w-14 h-14 object-contain"
+                className="w-14 h-14 object-contain transition-transform duration-300 group-hover:scale-110"
               />
               <div className="flex flex-col">
                 <span className="font-display font-bold text-2xl text-zenith-white">
@@ -61,9 +55,9 @@ const Footer = ({ className = '' }: FooterProps) => {
                   Ayurvedic Heat Therapy
                 </span>
               </div>
-            </div>
+            </Link>
             <p className="text-zenith-gray text-sm leading-relaxed mb-6 max-w-sm">
-              India&apos;s first DIY modular sauna kit. Bring the ancient practice of 
+              India's first DIY modular sauna kit. Bring the ancient practice of
               therapeutic sweating to your home with our easy-to-assemble sauna kits.
             </p>
             <div className="flex items-center gap-4">
@@ -92,31 +86,12 @@ const Footer = ({ className = '' }: FooterProps) => {
             <ul className="space-y-3">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.id)}
+                  <Link
+                    to={link.path}
                     className="text-zenith-gray hover:text-zenith-gold text-sm transition-colors"
                   >
                     {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h4 className="font-display font-semibold text-sm uppercase tracking-wide text-zenith-white mb-4">
-              Company
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.id)}
-                    className="text-zenith-gray hover:text-zenith-gold text-sm transition-colors"
-                  >
-                    {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -130,12 +105,31 @@ const Footer = ({ className = '' }: FooterProps) => {
             <ul className="space-y-3">
               {footerLinks.support.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.id)}
+                  <Link
+                    to={link.path}
                     className="text-zenith-gray hover:text-zenith-gold text-sm transition-colors"
                   >
                     {link.label}
-                  </button>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company Links */}
+          <div>
+            <h4 className="font-display font-semibold text-sm uppercase tracking-wide text-zenith-white mb-4">
+              Company
+            </h4>
+            <ul className="space-y-3">
+              {footerLinks.company.map((link, index) => (
+                <li key={index}>
+                  <Link
+                    to={link.path}
+                    className="text-zenith-gray hover:text-zenith-gold text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -148,15 +142,9 @@ const Footer = ({ className = '' }: FooterProps) => {
             © {currentYear} SWEDANA. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <button className="text-zenith-gray hover:text-zenith-white text-xs transition-colors">
-              Privacy Policy
-            </button>
-            <button className="text-zenith-gray hover:text-zenith-white text-xs transition-colors">
-              Terms of Service
-            </button>
-            <button className="text-zenith-gray hover:text-zenith-white text-xs transition-colors">
-              Shipping Policy
-            </button>
+            <span className="text-zenith-gray text-xs">Privacy Policy</span>
+            <span className="text-zenith-gray text-xs">Terms of Service</span>
+            <span className="text-zenith-gray text-xs">Shipping Policy</span>
           </div>
         </div>
       </div>
