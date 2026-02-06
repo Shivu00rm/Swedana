@@ -13,8 +13,8 @@ export const siteConfig = {
   // Contact Information - EDIT THESE
   contact: {
     email: 'hello@swedana.in',
-    phone: '+91 98765 43210',
-    whatsapp: '+91 98765 43210',
+    phone: '+91 8217724387',
+    whatsapp: '+91 8217724387',
     address: 'Mumbai, India',
     hours: 'Mon–Sat, 10am–7pm IST',
     shippingInfo: 'Pan-India Delivery | 5-7 business days',
@@ -68,7 +68,7 @@ export const siteConfig = {
       logo: '/swedana_logo.png',
       favicon: '/favicon.png',
     },
-    
+
     // Assembly Steps - Replace with your actual assembly photos
     assembly: [
       { step: 1, image: '/diy_step1.jpg', title: 'Unbox & Prepare' },
@@ -76,7 +76,7 @@ export const siteConfig = {
       { step: 3, image: '/diy_step3.jpg', title: 'Install Wall Panels' },
       { step: 4, image: '/diy_step4.jpg', title: 'Add Ceiling & Bench' },
     ],
-    
+
     // Benefits Section
     benefits: {
       heart: '/benefit_heart.jpg',
@@ -84,7 +84,7 @@ export const siteConfig = {
       recovery: '/benefit_recovery.jpg',
       skin: '/benefit_skin.jpg',
     },
-    
+
     // Product Images
     products: {
       standard: '/diy_step1.jpg',
@@ -98,7 +98,7 @@ export const siteConfig = {
     // Form submissions will be stored in localStorage
     // To view submissions, go to /admin/submissions
     storeSubmissions: true,
-    
+
     // Email notification (configure backend separately)
     notificationEmail: 'hello@swedana.in',
   },
@@ -115,7 +115,7 @@ export const siteConfig = {
 export const getConfig = (path: string) => {
   const keys = path.split('.');
   let value: any = siteConfig;
-  
+
   for (const key of keys) {
     if (value && typeof value === 'object' && key in value) {
       value = value[key];
@@ -123,7 +123,7 @@ export const getConfig = (path: string) => {
       return undefined;
     }
   }
-  
+
   return value;
 };
 

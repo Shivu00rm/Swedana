@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { getWhatsAppLink } from '../utils/whatsapp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,9 +19,7 @@ interface ProductSectionProps {
 const ProductSection = ({ className = '' }: ProductSectionProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  
-  const [showQuoteDialog, setShowQuoteDialog] = useState(false);
-  const [showCustomDialog, setShowCustomDialog] = useState(false);
+
   const [showSpecsDialog, setShowSpecsDialog] = useState(false);
   const [activeProduct, setActiveProduct] = useState<'standard' | 'custom'>('standard');
 
@@ -88,7 +87,7 @@ const ProductSection = ({ className = '' }: ProductSectionProps) => {
               Get Your SWEDANA Kit
             </h2>
             <p className="text-zenith-gray text-lg max-w-2xl mx-auto">
-              Two options, both delivered flat-packed to your door. 
+              Two options, both delivered flat-packed to your door.
               Assembly takes just 4-6 hours with basic tools.
             </p>
           </div>
@@ -97,21 +96,19 @@ const ProductSection = ({ className = '' }: ProductSectionProps) => {
           <div className="flex justify-center gap-4 mb-10">
             <button
               onClick={() => setActiveProduct('standard')}
-              className={`px-8 py-4 rounded-full font-display font-semibold text-sm transition-all ${
-                activeProduct === 'standard'
-                  ? 'bg-zenith-gold text-zenith-black'
-                  : 'bg-white/5 text-zenith-gray hover:bg-white/10 hover:text-zenith-white'
-              }`}
+              className={`px-8 py-4 rounded-full font-display font-semibold text-sm transition-all ${activeProduct === 'standard'
+                ? 'bg-zenith-gold text-zenith-black'
+                : 'bg-white/5 text-zenith-gray hover:bg-white/10 hover:text-zenith-white'
+                }`}
             >
               Standard Kit
             </button>
             <button
               onClick={() => setActiveProduct('custom')}
-              className={`px-8 py-4 rounded-full font-display font-semibold text-sm transition-all ${
-                activeProduct === 'custom'
-                  ? 'bg-zenith-gold text-zenith-black'
-                  : 'bg-white/5 text-zenith-gray hover:bg-white/10 hover:text-zenith-white'
-              }`}
+              className={`px-8 py-4 rounded-full font-display font-semibold text-sm transition-all ${activeProduct === 'custom'
+                ? 'bg-zenith-gold text-zenith-black'
+                : 'bg-white/5 text-zenith-gray hover:bg-white/10 hover:text-zenith-white'
+                }`}
             >
               Custom Kit
             </button>
@@ -127,7 +124,7 @@ const ProductSection = ({ className = '' }: ProductSectionProps) => {
                 className="w-full aspect-[4/3] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zenith-black via-transparent to-transparent" />
-              
+
               {/* Badges */}
               <div className="absolute top-4 left-4 flex gap-2">
                 {activeProduct === 'standard' ? (
@@ -216,14 +213,20 @@ const ProductSection = ({ className = '' }: ProductSectionProps) => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <button 
-                  onClick={() => activeProduct === 'standard' ? setShowQuoteDialog(true) : setShowCustomDialog(true)}
+                <button
+                  onClick={() => {
+                    const link = getWhatsAppLink({
+                      productName: activeProduct === 'standard' ? 'SWEDANA Standard Kit' : 'SWEDANA Custom Kit',
+                      category: activeProduct === 'standard' ? 'Standard' : 'Custom',
+                    });
+                    window.open(link, '_blank');
+                  }}
                   className="btn-gold"
                 >
-                  {activeProduct === 'standard' ? 'Order Your Kit' : 'Request Consultation'}
+                  Buy Now
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </button>
-                <button 
+                <button
                   onClick={() => setShowSpecsDialog(true)}
                   className="btn-outline-gold"
                 >
@@ -256,62 +259,7 @@ const ProductSection = ({ className = '' }: ProductSectionProps) => {
         </div>
       </div>
 
-      {/* Order Dialog */}
-      <Dialog open={showQuoteDialog} onOpenChange={setShowQuoteDialog}>
-        <DialogContent className="bg-zenith-charcoal border-white/10 text-zenith-white max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-display font-bold text-xl">Order Your SWEDANA Kit</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 pt-4">
-            <p className="text-zenith-gray text-sm">
-              Ready to build your wellness sanctuary? Fill in your details and we&apos;ll get your kit shipped within 48 hours.
-            </p>
-            <input type="text" placeholder="Your name" className="w-full" />
-            <input type="email" placeholder="Email address" className="w-full" />
-            <input type="tel" placeholder="Phone number" className="w-full" />
-            <input type="text" placeholder="Delivery city" className="w-full" />
-            <button 
-              onClick={() => setShowQuoteDialog(false)}
-              className="btn-gold w-full"
-            >
-              Place Order
-            </button>
-          </div>
-        </DialogContent>
-      </Dialog>
 
-      {/* Custom Kit Dialog */}
-      <Dialog open={showCustomDialog} onOpenChange={setShowCustomDialog}>
-        <DialogContent className="bg-zenith-charcoal border-white/10 text-zenith-white max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="font-display font-bold text-xl">Custom SWEDANA Consultation</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 pt-4">
-            <p className="text-zenith-gray text-sm">
-              Tell us about your vision. Our design team will create a bespoke sauna kit tailored to your space and preferences.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {customKitContents.slice(0, 6).map((item, index) => (
-                <div key={index} className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-zenith-gold mt-0.5 flex-shrink-0" />
-                  <span className="text-zenith-gray">{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="pt-4 border-t border-white/10">
-              <input type="text" placeholder="Your name" className="w-full mb-3" />
-              <input type="email" placeholder="Email address" className="w-full mb-3" />
-              <textarea placeholder="Tell us about your space, dimensions, and requirements..." className="w-full h-24 resize-none" />
-              <button 
-                onClick={() => setShowCustomDialog(false)}
-                className="btn-gold w-full mt-4"
-              >
-                Request Design Call
-              </button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {/* Specs Dialog */}
       <Dialog open={showSpecsDialog} onOpenChange={setShowSpecsDialog}>
@@ -350,7 +298,7 @@ const ProductSection = ({ className = '' }: ProductSectionProps) => {
                 <span className="text-zenith-white text-sm">~350-400 kg</span>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => setShowSpecsDialog(false)}
               className="btn-outline-gold w-full"
             >

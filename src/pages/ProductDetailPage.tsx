@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Check, Package, Zap, Thermometer } from 'lucide-react';
+import { getWhatsAppLink } from '../utils/whatsapp';
 
 const ProductDetailPage = () => {
     const { slug } = useParams();
@@ -180,12 +181,19 @@ const ProductDetailPage = () => {
                                         <span className="text-zenith-gray">Price</span>
                                         <span className="font-display font-bold text-3xl text-zenith-gold">{product.price}</span>
                                     </div>
-                                    <Link
-                                        to="/#contact"
-                                        className="block w-full py-4 bg-zenith-gold text-zenith-black text-center font-semibold rounded-full hover:bg-zenith-gold/90 transition-all"
+                                    <button
+                                        onClick={() => {
+                                            const link = getWhatsAppLink({
+                                                productName: product.name,
+                                                category: 'Sauna',
+                                                size: product.capacity
+                                            });
+                                            window.open(link, '_blank');
+                                        }}
+                                        className="block w-full py-4 bg-zenith-gold text-zenith-black text-center font-semibold rounded-full hover:bg-zenith-gold/90 transition-all flex items-center justify-center gap-2"
                                     >
-                                        Get a Quote
-                                    </Link>
+                                        Buy Now
+                                    </button>
                                     <p className="text-xs text-zenith-gray text-center mt-3">Free shipping • 2-year warranty • Made in India</p>
                                 </div>
                             </div>
